@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
-import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from transformers import BertTokenizer, BertModel
-from sklearn.linear_model import LogisticRegression
-import torch
-import os
+# import pandas as pd
+# import numpy as np
+# from sklearn.model_selection import train_test_split
+# from transformers import BertTokenizer, BertModel
+# from sklearn.linear_model import LogisticRegression
+# import torch
+# import os
 
 
 # Initialize Flask app
