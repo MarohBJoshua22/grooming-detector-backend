@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from transformers import BertTokenizer, BertModel
 from sklearn.linear_model import LogisticRegression
 import torch
+import os
 
 
 # Initialize Flask app
@@ -13,13 +14,13 @@ app = Flask(__name__)
 log_reg_model = LogisticRegression(max_iter=1000)
 
 # Load the dataset from a CSV file
-df = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\grooming-detector-backend\profanity_en.csv")
+df = pd.read_csv(os.path.join(os.getcwd(), "profanity_en.csv"))
  
 df_filtered = df[df['category_1'] == 'sexual anatomy / sexual acts']
 df_filtered = df_filtered[['text']]
 df_filtered['label'] = 1  # Binary label for grooming
 
-df2 = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\grooming-detector-backend\Non-grooming set_utf8.csv")
+df2 = pd.read_csv(os.path.join(os.getcwd(), "Non-grooming set_utf8.csv"))
 df2 = df2[['text', 'label']]  # Assume 'label' column exists
 
 # Combine the two datasets 
@@ -80,7 +81,7 @@ def predict_grooming():
         # texts = data['texts']  # Expecting 'texts' to be a list of strings
         texts = np.array(["FYI 69"])
         # Predict grooming or non-grooming
-        is_grooming = is_grooming_conversation(texts)
+        # is_grooming = is_grooming_conversation(texts)
 
         # Prepare the response
         response = {
@@ -91,6 +92,11 @@ def predict_grooming():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+@app.route('/health', methods=['GET'])
+def health():
+  return jsonify({"ok" :True})
+
 
 # Run Flask app
 if __name__ == '__main__':
