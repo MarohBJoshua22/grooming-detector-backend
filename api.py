@@ -13,13 +13,13 @@ app = Flask(__name__)
 log_reg_model = LogisticRegression(max_iter=1000)
 
 # Load the dataset from a CSV file
-df = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\API\profanity_en.csv")
+df = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\grooming-detector-backend\profanity_en.csv")
  
 df_filtered = df[df['category_1'] == 'sexual anatomy / sexual acts']
 df_filtered = df_filtered[['text']]
 df_filtered['label'] = 1  # Binary label for grooming
 
-df2 = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\API\Non-grooming set_utf8.csv")
+df2 = pd.read_csv(r"C:\Users\HP\OneDrive\Desktop\grooming_detector\grooming-detector-backend\Non-grooming set_utf8.csv")
 df2 = df2[['text', 'label']]  # Assume 'label' column exists
 
 # Combine the two datasets 
@@ -95,6 +95,3 @@ def predict_grooming():
 # Run Flask app
 if __name__ == '__main__':
     app.run(debug=True)
-     
-     
-     
